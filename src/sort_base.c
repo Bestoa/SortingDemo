@@ -3,30 +3,19 @@
 #include <time.h>
 #include "sort_base.h"
 
-#define NUM 2000
-#define MAX 10000
-
-void dump(int array[], size_t size) {
-    int i;
-    if (size > 100) {
-        // Disable dump when the number of elements is larger than 100
-        return;
-    }
-    for (i = 0; i < size; i++) {
-        printf("%d ", array[i]);
-    }
-    printf("\n");
-}
+#define EVEN_NUM (2000)
+#define ODD_NUM (2001)
+#define MAX (10000)
+#define ROUND_MAX (10)
 
 void validated(int array[], size_t size) {
     int i;
     for (i = 0; i < size - 2; i++) {
         if (array[i] > array[i + 1]) {
-            printf("Valiedated failed\n");
+            printf("\nValiedated failed\n");
             return;
         }
     }
-    printf("Valiedated OK\n");
 }
 
 void swap(int *a, int *b) {
@@ -35,24 +24,41 @@ void swap(int *a, int *b) {
     *b = tmp;
 }
 
-int main(){
-    int array[NUM];
-    int i;
+void sort_benchmark(size_t num)
+{
+    int *array;
+    int i, round = 0;
     PfnSortFunc sort_func;
     clock_t t1, t2;
-    srand(time(NULL));
-    for (i = 0; i < NUM; i++) {
-        array[i] = rand() % MAX;
+    double total = 0;
+    array = (int *)malloc(num * sizeof(int));
+    if (!array)
+    {
+        printf("OOM\n");
+        return;
     }
-    dump(array, NUM);
-    printf("===start===\n");
     init_sort_func(&sort_func);
-    t1 = clock();
-    sort_func(array, NUM);
-    t2 = clock();
-    printf("===end===\n");
-    validated(array, NUM);
-    printf("Time = %lf\n", (double)(t2 -t1)/CLOCKS_PER_SEC);
-    dump(array, NUM);
+    while (round++ < ROUND_MAX)
+    {
+        double current = 0;
+        srand(time(NULL));
+        for (i = 0; i < num; i++) {
+            array[i] = rand() % MAX;
+        }
+        t1 = clock();
+        sort_func(array, num);
+        t2 = clock();
+        validated(array, num);
+        current = (double)(t2 -t1)/CLOCKS_PER_SEC;
+        printf("Round %d: %lfs ", round, current);
+        total += current;
+    }
+    printf("\nAvg: %lfs\n", total / ROUND_MAX);
+}
+
+int main(){
+    sort_benchmark(ODD_NUM);
+    sort_benchmark(EVEN_NUM);
+    sort_benchmark(ODD_NUM);
     return 0;
 }
