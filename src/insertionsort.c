@@ -1,7 +1,9 @@
-void insertionsort_demo(int *array, int start, int end) {
+#include "sort_base.h"
+
+void insertionsort_demo(int *array, size_t len) {
     int i, j, k;
     int key;
-    for(i = 1; i < end; i++) {
+    for(i = 1; i < len; i++) {
         key = array[i];
         for (j = 0; j < i && array[j] < key; j++);
         for (k = i; k > j; k--) {
@@ -11,6 +13,6 @@ void insertionsort_demo(int *array, int start, int end) {
     }
 }
 
-void init_sort_func(void (**sort_fun)(int *, int, int)) {
-    *sort_fun = insertionsort_demo;
+void init_sort_func(PfnSortFunc *sort_func) {
+    *sort_func = insertionsort_demo;
 }

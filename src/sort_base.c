@@ -1,25 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "sort_base.h"
 
 #define NUM 2000
 #define MAX 10000
 
-extern void init_sort_func(void (**)(int *, int, int));
-
-void dump(int array[], int start, int end) {
+void dump(int array[], size_t size) {
     int i;
-    if (NUM > 100) {
+    if (size > 100) {
         // Disable dump when the number of elements is larger than 100
         return;
     }
-    for (i = start; i < end; i++) {
+    for (i = 0; i < size; i++) {
         printf("%d ", array[i]);
     }
     printf("\n");
 }
 
-void validated(int array[], int size) {
+void validated(int array[], size_t size) {
     int i;
     for (i = 0; i < size - 2; i++) {
         if (array[i] > array[i + 1]) {
@@ -39,21 +38,21 @@ void swap(int *a, int *b) {
 int main(){
     int array[NUM];
     int i;
-    void (*sort_func)(int *, int, int);
+    PfnSortFunc sort_func;
     clock_t t1, t2;
     srand(time(NULL));
     for (i = 0; i < NUM; i++) {
         array[i] = rand() % MAX;
     }
-    dump(array, 0, NUM);
+    dump(array, NUM);
     printf("===start===\n");
     init_sort_func(&sort_func);
     t1 = clock();
-    sort_func(array, 0, NUM);
+    sort_func(array, NUM);
     t2 = clock();
     printf("===end===\n");
     validated(array, NUM);
     printf("Time = %lf\n", (double)(t2 -t1)/CLOCKS_PER_SEC);
-    dump(array, 0, NUM);
+    dump(array, NUM);
     return 0;
 }

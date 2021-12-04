@@ -1,6 +1,6 @@
-extern void swap(int *, int *);
+#include "sort_base.h"
 
-void qsort_demo(int *array, int start, int end) {
+void __qsort_demo(int *array, int start, int end) {
     int i = start, j = start;
     int flag = array[end - 1];
     if (start >= end)
@@ -12,10 +12,15 @@ void qsort_demo(int *array, int start, int end) {
         }
     }
     swap(&array[j], &array[end - 1]);
-    qsort_demo(array, start, j);
-    qsort_demo(array, j + 1, end);
+    __qsort_demo(array, start, j);
+    __qsort_demo(array, j + 1, end);
 }
 
-void init_sort_func(void (**sort_fun)(int *, int, int)) {
-    *sort_fun = qsort_demo;
+void qsort_demo(int *array, size_t len)
+{
+    __qsort_demo(array, 0, len);
+}
+
+void init_sort_func(PfnSortFunc *sort_func) {
+    *sort_func = qsort_demo;
 }

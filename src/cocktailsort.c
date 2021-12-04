@@ -1,8 +1,8 @@
-extern void swap(int *, int *);
+#include "sort_base.h"
 
-void cocktailsort_demo(int *array, int start, int end) {
+void cocktailsort_demo(int *array, size_t len) {
     int i, swaped = 1;
-    int left = start, right = end - 1;
+    int left = 0, right = len - 1;
     while(swaped) {
         swaped = 0;
         for (i = left; i < right - 1; i++) {
@@ -22,6 +22,6 @@ void cocktailsort_demo(int *array, int start, int end) {
     }
 }
 
-void init_sort_func(void (**sort_fun)(int *, int, int)) {
-    *sort_fun = cocktailsort_demo;
+void init_sort_func(PfnSortFunc *sort_func) {
+    *sort_func = cocktailsort_demo;
 }

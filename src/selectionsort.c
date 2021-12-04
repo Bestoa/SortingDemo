@@ -1,10 +1,10 @@
-extern void swap(int *, int *);
+#include "sort_base.h"
 
-void selectionsort_demo(int *array, int start, int end) {
+void selectionsort_demo(int *array, size_t len) {
     int i, j, min;
-    for (i = start; i < end; i++) {
+    for (i = 0; i < len; i++) {
         min = i;
-        for (j = i + 1; j < end; j++) {
+        for (j = i + 1; j < len; j++) {
             if (array[j] < array[min])
                 min = j;
         }
@@ -12,6 +12,6 @@ void selectionsort_demo(int *array, int start, int end) {
     }
 }
 
-void init_sort_func(void (**sort_fun)(int *, int, int)) {
-    *sort_fun = selectionsort_demo;
+void init_sort_func(PfnSortFunc *sort_func) {
+    *sort_func = selectionsort_demo;
 }

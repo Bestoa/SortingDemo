@@ -1,8 +1,8 @@
-extern void swap(int *, int *);
+#include "sort_base.h"
 
-void bubble_demo(int *array, int start, int end) {
+void bubble_demo(int *array, size_t len) {
     int i, j;
-    for (i = end - 1; i > 0; i--) {
+    for (i = len - 1; i > 0; i--) {
         for (j = 0; j < i - 1; j++) {
             if (array[j] > array[j + 1]) {
                 swap(&array[j], &array[j + 1]);
@@ -11,6 +11,6 @@ void bubble_demo(int *array, int start, int end) {
     }
 }
 
-void init_sort_func(void (**sort_fun)(int *, int, int)) {
-    *sort_fun = bubble_demo;
+void init_sort_func(PfnSortFunc *sort_func) {
+    *sort_func = bubble_demo;
 }
