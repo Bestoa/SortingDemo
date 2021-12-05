@@ -1,6 +1,6 @@
 #include "sort_base.h"
 
-void __qsort_demo(int *array, int start, int end) {
+void __qsort(int *array, int start, int end) {
     int i = start, j = start;
     int flag = array[end - 1];
     if (start >= end)
@@ -12,13 +12,13 @@ void __qsort_demo(int *array, int start, int end) {
         }
     }
     swap(&array[j], &array[end - 1]);
-    __qsort_demo(array, start, j);
-    __qsort_demo(array, j + 1, end);
+    __qsort(array, start, j);
+    __qsort(array, j + 1, end);
 }
 
 void qsort_demo(int *array, size_t len)
 {
-    __qsort_demo(array, 0, len);
+    __qsort(array, 0, len);
 }
 
 void init_sort_func(PfnSortFunc *sort_func) {
