@@ -1,24 +1,24 @@
 CC=gcc
 RM=rm
 CFLAGS=-Wall
-all: ./src/bubblesort ./src/stoogesort ./src/qsort ./src/insertionsort ./src/shellsort ./src/cocktailsort ./src/mergesort ./src/selectionsort 
-__GEN__COMMON_OBJ.o: ./src/sort_base.c 
+all: ./bin/bubblesort ./bin/stoogesort ./bin/qsort ./bin/insertionsort ./bin/shellsort ./bin/cocktailsort ./bin/mergesort ./bin/selectionsort 
+./bin/__GEN__COMMON_OBJ.o: ./src/sort_base.c 
 	$(CC) $^ $(CFLAGS) -o $@ -c
-./src/bubblesort: __GEN__COMMON_OBJ.o ./src/bubblesort.c
+./bin/bubblesort: ./bin/__GEN__COMMON_OBJ.o ./src/bubblesort.c
 	$(CC) $^ $(CFLAGS) -o $@
-./src/stoogesort: __GEN__COMMON_OBJ.o ./src/stoogesort.c
+./bin/stoogesort: ./bin/__GEN__COMMON_OBJ.o ./src/stoogesort.c
 	$(CC) $^ $(CFLAGS) -o $@
-./src/qsort: __GEN__COMMON_OBJ.o ./src/qsort.c
+./bin/qsort: ./bin/__GEN__COMMON_OBJ.o ./src/qsort.c
 	$(CC) $^ $(CFLAGS) -o $@
-./src/insertionsort: __GEN__COMMON_OBJ.o ./src/insertionsort.c
+./bin/insertionsort: ./bin/__GEN__COMMON_OBJ.o ./src/insertionsort.c
 	$(CC) $^ $(CFLAGS) -o $@
-./src/shellsort: __GEN__COMMON_OBJ.o ./src/shellsort.c
+./bin/shellsort: ./bin/__GEN__COMMON_OBJ.o ./src/shellsort.c
 	$(CC) $^ $(CFLAGS) -o $@
-./src/cocktailsort: __GEN__COMMON_OBJ.o ./src/cocktailsort.c
+./bin/cocktailsort: ./bin/__GEN__COMMON_OBJ.o ./src/cocktailsort.c
 	$(CC) $^ $(CFLAGS) -o $@
-./src/mergesort: __GEN__COMMON_OBJ.o ./src/mergesort.c
+./bin/mergesort: ./bin/__GEN__COMMON_OBJ.o ./src/mergesort.c
 	$(CC) $^ $(CFLAGS) -o $@
-./src/selectionsort: __GEN__COMMON_OBJ.o ./src/selectionsort.c
+./bin/selectionsort: ./bin/__GEN__COMMON_OBJ.o ./src/selectionsort.c
 	$(CC) $^ $(CFLAGS) -o $@
 clean:
-	$(RM) -rvf *.o ./src/bubblesort ./src/stoogesort ./src/qsort ./src/insertionsort ./src/shellsort ./src/cocktailsort ./src/mergesort ./src/selectionsort 
+	$(RM) -rvf ./bin/*.o ./bin/bubblesort ./bin/stoogesort ./bin/qsort ./bin/insertionsort ./bin/shellsort ./bin/cocktailsort ./bin/mergesort ./bin/selectionsort 
