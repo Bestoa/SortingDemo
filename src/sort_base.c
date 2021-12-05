@@ -3,8 +3,8 @@
 #include <time.h>
 #include "sort_base.h"
 
-#define EVEN_NUM (2000)
-#define ODD_NUM (2001)
+#define EVEN_NUM (20000)
+#define ODD_NUM (20001)
 #define MAX (10000)
 #define ROUND_MAX (10)
 
