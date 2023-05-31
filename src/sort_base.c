@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 #include <time.h>
 #include "sort_base.h"
 
-#define EVEN_NUM (20000)
-#define ODD_NUM (20001)
-#define MAX (10000)
+#define WARM_UP_NUM (1000)
+#define DEFAULT_EVEN_NUM (20000)
+#define DEFAULT_ODD_NUM (20001)
+#define MAX (INT_MAX)
 #define ROUND_MAX (10)
 
 void validated(int array[], size_t size) {
@@ -56,9 +58,25 @@ void sort_benchmark(size_t num)
     printf("\nAvg: %lfs\n", total / ROUND_MAX);
 }
 
-int main(){
-    sort_benchmark(ODD_NUM);
-    sort_benchmark(EVEN_NUM);
-    sort_benchmark(ODD_NUM);
+int main(int argc, char **argv) {
+    int even_num = 0;
+    int odd_num = 0;
+
+    if (argc > 1)
+    {
+        even_num = atoi(argv[1]) * WARM_UP_NUM;
+        odd_num = even_num + 1;
+    }
+    if (even_num <= 0)
+        even_num = DEFAULT_EVEN_NUM;
+    if (odd_num <= 0)
+        odd_num = DEFAULT_ODD_NUM;
+
+    printf("Warming up...\n");
+    sort_benchmark(WARM_UP_NUM);
+    printf("Test start, even = %d, odd = %d\n", even_num, odd_num);
+    sort_benchmark(even_num);
+    sort_benchmark(odd_num);
+    printf("Test end.\n");
     return 0;
 }

@@ -3,7 +3,7 @@ import os
 
 CC="gcc"
 RM="rm"
-CFLAGS="-Wall"
+CFLAGS="-Wall -O3"
 
 SOURCE_BASE_DIR = './src/'
 OBJ_BASE_DIR = './bin/'
