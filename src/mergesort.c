@@ -35,6 +35,7 @@ void mergesort_demo(int *array, size_t len)
 {
     int *tmp = (int *)malloc(sizeof(int) * len);
     __sort(array, 0, len, tmp);
+    free(tmp);
 }
 
 void init_sort_func(PfnSortFunc *sort_func) {

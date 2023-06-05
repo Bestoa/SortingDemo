@@ -55,6 +55,7 @@ void sort_benchmark(size_t num)
         printf("Round %d: %lfs ", round, current);
         total += current;
     }
+    free(array);
     printf("\nAvg: %lfs\n", total / ROUND_MAX);
 }
 
